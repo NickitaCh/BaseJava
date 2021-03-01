@@ -38,7 +38,7 @@ public class ArrayStorage {
         }
        for (int j = 0; j < q; j++){
             if (storage[j] == null){
-                for (int k = j+1; k < q + 1; k++){
+                for (int k = j + 1; k < q + 1; k++){
                     storage[k - 1] = storage[k];
                 }
                 storage[storage.length - 1] = null;
