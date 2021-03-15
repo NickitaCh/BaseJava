@@ -20,8 +20,7 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        int i = 0;
-        for (; i < numberOfResumes; i++) {
+        for (int i = 0; i < numberOfResumes; i++) {
             if (storage[i].uuid == uuid) {
                 return storage[i];
             }
@@ -33,18 +32,14 @@ public class ArrayStorage {
         for (int i = 0; i < numberOfResumes; i++) {
             if (storage[i].uuid == uuid) {
                 storage[i] = null;
-            }
-        }
-        for (int j = 0; j < numberOfResumes; j++) {
-            if (storage[j] == null) {
-                for (int k = j + 1; k < numberOfResumes + 1; k++) {
+                for (int k = i + 1; k < numberOfResumes + 1; k++) {
                     storage[k - 1] = storage[k];
                 }
                 storage[numberOfResumes - 1] = null;
+                numberOfResumes--;
                 break;
             }
         }
-        numberOfResumes--;
     }
 
     /**
