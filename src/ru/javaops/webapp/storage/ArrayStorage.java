@@ -10,22 +10,23 @@ import java.util.Arrays;
 public class ArrayStorage {
     private Resume[] storage = new Resume[10000];
     private int numberOfResumes = 0;
+    private int numberOfResume = 0;
 
     public void clear() {
         Arrays.fill(storage, 0, numberOfResumes, null);
         numberOfResumes = 0;
     }
 
-    public void save(Resume r) {
-        if (saveCheck(r) && fullStorageCheck()) {
-            storage[numberOfResumes] = r;
+    public void save(Resume resume) {
+        if (saveCheck(resume) && fullStorageCheck()) {
+            storage[numberOfResumes] = resume;
             numberOfResumes++;
         }
     }
 
-    private boolean saveCheck(Resume r) {
+    private boolean saveCheck(Resume resume) {
         for (int i = 0; i < numberOfResumes; i++) {
-            if (r.uuid.equals(storage[i].uuid)) {
+            if (resume.getUuid().equals(storage[i].getUuid())) {
                 System.out.println("Данное резюме уже находится в базе данных.");
                 return false;
             }
@@ -34,7 +35,7 @@ public class ArrayStorage {
     }
 
     private boolean fullStorageCheck() {
-        if (numberOfResumes == 10000) {
+        if (numberOfResumes == 10_000) {
             System.out.println("База данных заполнена.");
             return false;
         }
@@ -43,20 +44,15 @@ public class ArrayStorage {
 
     public Resume get(String uuid) {
         if (resumeCheck(uuid)) {
-            for (int i = 0; i < numberOfResumes; i++) {
-                if (storage[i].uuid.equals(uuid)) {
-                    return storage[i];
-                }
-            }
+            return storage[numberOfResume];
         }
         return null;
     }
 
-    int i = 0;
-
     private boolean resumeCheck(String uuid) {
-        for (i = 0; i < numberOfResumes; i++) {
-            if (uuid.equals(storage[i].uuid)) {
+        for (int i = 0; i < numberOfResumes; i++) {
+            if (uuid.equals(storage[i].getUuid())) {
+                numberOfResume = i;
                 return true;
             }
             if (i + 1 == numberOfResumes) {
@@ -68,23 +64,18 @@ public class ArrayStorage {
 
     public void delete(String uuid) {
         if (resumeCheck(uuid)) {
-            for (int i = 0; i < numberOfResumes; i++) {
-                if (storage[i].uuid.equals(uuid)) {
-                    storage[i] = null;
-                    for (int k = i + 1; k < numberOfResumes + 1; k++) {
-                        storage[k - 1] = storage[k];
-                    }
-                    storage[numberOfResumes - 1] = null;
-                    numberOfResumes--;
-                    break;
-                }
+            storage[numberOfResume] = null;
+            for (int k = numberOfResume + 1; k < numberOfResumes + 1; k++) {
+                storage[k - 1] = storage[k];
             }
+            storage[numberOfResumes - 1] = null;
+            numberOfResumes--;
         }
     }
 
     public void update(Resume resume) {
-        if (resumeCheck(resume.uuid)) {
-            storage[i].uuid = resume.uuid;
+        if (resumeCheck(resume.getUuid())) {
+            storage[numberOfResume].setUuid(resume.getUuid());
         }
     }
 
