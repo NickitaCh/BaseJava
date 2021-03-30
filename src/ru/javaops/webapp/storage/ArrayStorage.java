@@ -18,8 +18,8 @@ public class ArrayStorage {
 
     public void save(Resume resume) {
         if (checkResume(resume.getUuid()) != -1) {
-            System.out.println("Данное резюме уже находится в базе данных.");
-        } else if (numberOfResumes == 10_000) {
+            System.out.println("Резюме " + resume.getUuid() + " уже есть в базе данных.");
+        } else if (numberOfResumes == storage.length) {
             System.out.println("База данных заполнена.");
         } else {
             storage[numberOfResumes] = resume;
@@ -41,7 +41,7 @@ public class ArrayStorage {
         if (index != -1) {
             return storage[index];
         }
-        System.out.println("Данного резюме нет в базе данных.");
+        System.out.println("Резюме " + uuid + " нет в базе данных.");
         return null;
     }
 
@@ -49,28 +49,27 @@ public class ArrayStorage {
         int index = checkResume(uuid);
         if (index != -1) {
             storage[index] = null;
-            for (int k = index + 1; k < numberOfResumes + 1; k++) {
-                storage[k - 1] = storage[k];
-            }
+            if (numberOfResumes + 1 - index + 1 >= 0)
+                System.arraycopy(storage, index + 1, storage, index + 1 - 1, numberOfResumes + 1 - index + 1);
             storage[numberOfResumes - 1] = null;
             numberOfResumes--;
         } else
-            System.out.println("Данного резюме нет в базе данных.");
+            System.out.println("Резюме " + uuid + " нет в базе данных.");
     }
 
     public void update(Resume resume) {
         int index = checkResume(resume.getUuid());
-        if (checkResume(resume.getUuid()) == -1) {
-            System.out.println("Данного резюме нет в базе данных.");
+        if (index == -1) {
+            System.out.println("Резюме " + resume.getUuid() + " нет в базе данных.");
         } else
-            storage[index].setUuid(resume.getUuid());
+            storage[index] = resume;
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, numberOfResumes);
+        return Arrays.copyOf(storage, numberOfResumes);
     }
 
     public int size() {
