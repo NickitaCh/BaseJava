@@ -17,7 +17,7 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        if (checkResume(resume.getUuid()) != -1) {
+        if (findIndex(resume.getUuid()) != -1) {
             System.out.println("Резюме " + resume.getUuid() + " уже есть в базе данных.");
         } else if (numberOfResumes == storage.length) {
             System.out.println("База данных заполнена.");
@@ -27,17 +27,8 @@ public class ArrayStorage {
         }
     }
 
-    private int checkResume(String uuid) {
-        for (int i = 0; i < numberOfResumes; i++) {
-            if (uuid.equals(storage[i].getUuid())) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     public Resume get(String uuid) {
-        int index = checkResume(uuid);
+        int index = findIndex(uuid);
         if (index != -1) {
             return storage[index];
         }
@@ -46,7 +37,7 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        int index = checkResume(uuid);
+        int index = findIndex(uuid);
         if (index != -1) {
             storage[index] = null;
             if (numberOfResumes + 2 - index >= 0)
@@ -58,11 +49,20 @@ public class ArrayStorage {
     }
 
     public void update(Resume resume) {
-        int index = checkResume(resume.getUuid());
+        int index = findIndex(resume.getUuid());
         if (index == -1) {
             System.out.println("Резюме " + resume.getUuid() + " нет в базе данных.");
         } else
             storage[index] = resume;
+    }
+
+    private int findIndex(String uuid) {
+        for (int i = 0; i < numberOfResumes; i++) {
+            if (uuid.equals(storage[i].getUuid())) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
