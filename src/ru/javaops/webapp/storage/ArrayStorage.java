@@ -49,8 +49,8 @@ public class ArrayStorage {
         int index = checkResume(uuid);
         if (index != -1) {
             storage[index] = null;
-            if (numberOfResumes + 1 - index + 1 >= 0)
-                System.arraycopy(storage, index + 1, storage, index + 1 - 1, numberOfResumes + 1 - index + 1);
+            if (numberOfResumes + 2 - index >= 0)
+                System.arraycopy(storage, index + 1, storage, index, numberOfResumes + 2 - index);
             storage[numberOfResumes - 1] = null;
             numberOfResumes--;
         } else
