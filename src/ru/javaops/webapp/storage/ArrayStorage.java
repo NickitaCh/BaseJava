@@ -7,13 +7,23 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+public class ArrayStorage implements Storage{
+    private static final int STORAGE_LIMIT = 10000;
+
+    private Resume[] storage = new Resume[STORAGE_LIMIT];
     private int numberOfResumes = 0;
 
     public void clear() {
         Arrays.fill(storage, 0, numberOfResumes, null);
         numberOfResumes = 0;
+    }
+
+    public void update(Resume resume) {
+        int index = findIndex(resume.getUuid());
+        if (index == -1) {
+            System.out.println("Резюме " + resume.getUuid() + " нет в базе данных.");
+        } else
+            storage[index] = resume;
     }
 
     public void save(Resume resume) {
@@ -40,20 +50,11 @@ public class ArrayStorage {
         int index = findIndex(uuid);
         if (index != -1) {
             storage[index] = null;
-            if (numberOfResumes + 2 - index >= 0)
-                System.arraycopy(storage, index + 1, storage, index, numberOfResumes + 2 - index);
+            System.arraycopy(storage, index + 1, storage, index, numberOfResumes - index - 1);
             storage[numberOfResumes - 1] = null;
             numberOfResumes--;
         } else
             System.out.println("Резюме " + uuid + " нет в базе данных.");
-    }
-
-    public void update(Resume resume) {
-        int index = findIndex(resume.getUuid());
-        if (index == -1) {
-            System.out.println("Резюме " + resume.getUuid() + " нет в базе данных.");
-        } else
-            storage[index] = resume;
     }
 
     private int findIndex(String uuid) {
@@ -65,9 +66,6 @@ public class ArrayStorage {
         return -1;
     }
 
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
     public Resume[] getAll() {
         return Arrays.copyOf(storage, numberOfResumes);
     }
