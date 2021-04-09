@@ -1,5 +1,8 @@
 package ru.javaops.webapp.storage;
 
+import ru.javaops.webapp.exception.ExistStorageException;
+import ru.javaops.webapp.exception.NotExistStorageException;
+import ru.javaops.webapp.exception.StorageException;
 import ru.javaops.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -18,7 +21,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void update(Resume resume) {
         int index = findIndex(resume.getUuid());
         if (index == -1) {
-            System.out.println("Резюме " + resume.getUuid() + " нет в базе данных.");
+            throw new NotExistStorageException(resume.getUuid());
         } else
             storage[index] = resume;
     }
@@ -26,9 +29,9 @@ public abstract class AbstractArrayStorage implements Storage {
     public void save(Resume resume) {
         int index = findIndex(resume.getUuid());
         if (index != -1) {
-            System.out.println("Резюме " + resume.getUuid() + " уже есть в базе данных.");
+            throw new ExistStorageException(resume.getUuid());
         } else if (numberOfResumes == storage.length) {
-            System.out.println("База данных заполнена.");
+            throw new StorageException("База данных заполнена.", resume.getUuid());
         } else {
             addResume(resume, index);
             numberOfResumes++;
@@ -38,8 +41,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public Resume get(String uuid) {
         int index = findIndex(uuid);
         if (index == -1) {
-            System.out.println("Resume " + uuid + " not exist");
-            return null;
+            throw new NotExistStorageException(uuid);
         }
         return storage[index];
     }
@@ -52,7 +54,7 @@ public abstract class AbstractArrayStorage implements Storage {
             storage[numberOfResumes - 1] = null;
             numberOfResumes--;
         } else
-            System.out.println("Резюме " + uuid + " нет в базе данных.");
+            throw new NotExistStorageException(uuid);
     }
 
     public Resume[] getAll() {
