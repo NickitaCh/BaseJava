@@ -14,16 +14,15 @@ public abstract class AbstractArrayStorageTest {
     private Storage storage;
 
     private static final String UUID_1 = "uuid1";
-    private static final Resume Resume1 = new Resume(UUID_1);
+    private static final Resume resume1 = new Resume(UUID_1);
 
     private static final String UUID_2 = "uuid2";
-    private static final Resume Resume2 = new Resume(UUID_2);
+    private static final Resume resume2 = new Resume(UUID_2);
 
     private static final String UUID_3 = "uuid3";
-    private static final Resume Resume3 = new Resume(UUID_3);
+    private static final Resume resume3 = new Resume(UUID_3);
 
     private static final String UUID_4 = "uuid4";
-    private static final Resume Resume4 = new Resume(UUID_4);
 
     public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
@@ -32,9 +31,9 @@ public abstract class AbstractArrayStorageTest {
     @Before
     public void setUp() throws Exception {
         storage.clear();
-        storage.save(Resume1);
-        storage.save(Resume2);
-        storage.save(Resume3);
+        storage.save(resume1);
+        storage.save(resume2);
+        storage.save(resume3);
     }
 
     @Test
@@ -63,9 +62,9 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void getAll() throws Exception {
         Resume[] allResumes = storage.getAll();
-        assertEquals(Resume1, allResumes[0]);
-        assertEquals(Resume2, allResumes[1]);
-        assertEquals(Resume3, allResumes[2]);
+        assertEquals(resume1, allResumes[0]);
+        assertEquals(resume2, allResumes[1]);
+        assertEquals(resume3, allResumes[2]);
     }
 
     @Test
@@ -76,17 +75,17 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = ExistStorageException.class)
     public void saveExist() throws Exception {
-        storage.save(Resume1);
+        storage.save(resume1);
     }
 
     @Test(expected = StorageException.class)
-    public void storageTooMatch() throws Exception {
+    public void saveToStorageOverflow() throws Exception {
         try {
             for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
                 storage.save(new Resume());
             }
         } catch (StorageException e) {
-            Assert.fail();
+            Assert.fail("Хранилище переполнилось раньше времени!");
         }
         storage.save(new Resume());
     }
@@ -104,9 +103,9 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void get() throws Exception {
-        getResume(Resume1);
-        getResume(Resume2);
-        getResume(Resume3);
+        getResume(resume1);
+        getResume(resume2);
+        getResume(resume3);
     }
 
     @Test(expected = NotExistStorageException.class)
