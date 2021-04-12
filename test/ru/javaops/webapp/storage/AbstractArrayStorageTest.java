@@ -25,7 +25,7 @@ public abstract class AbstractArrayStorageTest {
     private static final String UUID_4 = "uuid4";
     private static final Resume Resume4 = new Resume(UUID_4);
 
-    public AbstractArrayStorageTest (Storage storage) {
+    public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
     }
 
@@ -76,13 +76,13 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = ExistStorageException.class)
     public void saveExist() throws Exception {
-        storage.get("dummy");
+        storage.save(Resume1);
     }
 
     @Test(expected = StorageException.class)
     public void storageTooMatch() throws Exception {
         try {
-            for (int i = storage.size(); i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
+            for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
                 storage.save(new Resume());
             }
         } catch (StorageException e) {

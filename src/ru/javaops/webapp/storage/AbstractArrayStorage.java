@@ -28,9 +28,9 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void save(Resume resume) {
         int index = findIndex(resume.getUuid());
-        if (index != -1) {
+        if (index >= 0) {
             throw new ExistStorageException(resume.getUuid());
-        } else if (numberOfResumes == storage.length) {
+        } else if (numberOfResumes == STORAGE_LIMIT) {
             throw new StorageException("База данных заполнена.", resume.getUuid());
         } else {
             addResume(resume, index);
