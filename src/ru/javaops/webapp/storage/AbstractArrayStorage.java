@@ -16,11 +16,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         numberOfResumes = 0;
     }
 
-    public void resumeUpdate(Resume resume, Object index) {
+    public void updateResume(Resume resume, Object index) {
             storage[(Integer) index] = resume;
     }
 
-    public void resumeSave(Resume resume, Object index) {
+    public void saveResume(Resume resume, Object index) {
         if (numberOfResumes == STORAGE_LIMIT) {
             throw new StorageException("База данных заполнена.", resume.getUuid());
         } else {
@@ -29,18 +29,17 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         }
     }
 
-    public Resume resumeGet(Object index) {
+    public Resume getResume(Object index) {
         return storage[(Integer) index];
     }
 
-    public void resumeDelete(Object index) {
-            storage[(Integer) index] = null;
+    public void deleteResume(Object index) {
             System.arraycopy(storage, (Integer) index + 1, storage, (Integer) index, numberOfResumes - (Integer) index - 1);
             storage[numberOfResumes - 1] = null;
             numberOfResumes--;
     }
 
-    public boolean resumeExist(Object index) {
+    public boolean existResume(Object index) {
         return (Integer) index >= 0;
     }
 

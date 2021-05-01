@@ -19,27 +19,27 @@ public class ListStorage  extends  AbstractStorage{
     }
 
     @Override
-    protected void resumeUpdate(Resume r, Object key) {
+    protected void updateResume(Resume r, Object key) {
         list.set((Integer) key, r);
     }
 
     @Override
-    protected boolean resumeExist(Object key) {
+    protected boolean existResume(Object key) {
         return key != null;
     }
 
     @Override
-    protected void resumeSave(Resume r, Object key) {
+    protected void saveResume(Resume r, Object key) {
         list.add(r);
     }
 
     @Override
-    protected Resume resumeGet(Object key) {
+    protected Resume getResume(Object key) {
         return list.get((Integer) key);
     }
 
     @Override
-    protected void resumeDelete(Object key) {
+    protected void deleteResume(Object key) {
         list.remove(((Integer) key).intValue());
     }
 

@@ -8,38 +8,39 @@ public abstract class AbstractStorage  implements Storage{
 
     protected abstract Object getKey(String uuid);
 
-    protected abstract void resumeUpdate(Resume r, Object key);
+    protected abstract void updateResume(Resume r, Object key);
 
-    protected abstract boolean resumeExist(Object key);
+    protected abstract boolean existResume(Object key);
 
-    protected abstract void resumeSave(Resume r, Object key);
+    protected abstract void saveResume(Resume r, Object key);
 
-    protected abstract Resume resumeGet(Object key);
+    protected abstract Resume getResume(Object key);
 
-    protected abstract void resumeDelete(Object key);
+    protected abstract void deleteResume(Object key);
 
     public void update(Resume r) {
         Object key = getExistedKey(r.getUuid());
-        resumeUpdate(r, key);
+        updateResume(r, key);
     }
 
     public void save(Resume r) {
         Object key = getNotExistedKey(r.getUuid());
-        resumeSave(r, key);
+        saveResume(r, key);
     }
 
     public void delete(String uuid) {
         Object key = getExistedKey(uuid);
-        resumeDelete(key);
+        deleteResume(key);
     }
 
     public Resume get(String uuid) {
         Object key = getExistedKey(uuid);
-        return resumeGet(key);
+        return getResume(key);
     }
+
     private Object getExistedKey(String uuid) {
         Object key = getKey(uuid);
-        if (!resumeExist(key)) {
+        if (!existResume(key)) {
             throw new NotExistStorageException(uuid);
         }
         return key;
@@ -47,7 +48,7 @@ public abstract class AbstractStorage  implements Storage{
 
     private Object getNotExistedKey(String uuid) {
         Object key = getKey(uuid);
-        if (resumeExist(key)) {
+        if (existResume(key)) {
             throw new ExistStorageException(uuid);
         }
         return key;
