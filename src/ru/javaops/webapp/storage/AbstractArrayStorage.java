@@ -17,7 +17,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     public void updateResume(Resume resume, Object index) {
-            storage[(Integer) index] = resume;
+        storage[(Integer) index] = resume;
     }
 
     public void saveResume(Resume resume, Object index) {
@@ -34,9 +34,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     public void deleteResume(Object index) {
-            System.arraycopy(storage, (Integer) index + 1, storage, (Integer) index, numberOfResumes - (Integer) index - 1);
-            storage[numberOfResumes - 1] = null;
-            numberOfResumes--;
+        System.arraycopy(storage, (Integer) index + 1, storage, (Integer) index, numberOfResumes - (Integer) index - 1);
+        storage[numberOfResumes - 1] = null;
+        numberOfResumes--;
     }
 
     public boolean existResume(Object index) {
