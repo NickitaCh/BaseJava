@@ -2,7 +2,9 @@ package ru.javaops.webapp.storage;
 
 import ru.javaops.webapp.model.Resume;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
@@ -44,8 +46,8 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return map.values().toArray(new Resume[0]);
+    public List<Resume> doCopy() {
+        return new ArrayList<>(map.values());
     }
 
     @Override

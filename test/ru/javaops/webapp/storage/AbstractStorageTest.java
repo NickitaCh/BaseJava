@@ -8,6 +8,9 @@ import ru.javaops.webapp.exception.NotExistStorageException;
 import ru.javaops.webapp.exception.StorageException;
 import ru.javaops.webapp.model.Resume;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractStorageTest {
@@ -24,10 +27,10 @@ public abstract class AbstractStorageTest {
     private static final Resume RESUME_4;
 
     static {
-        RESUME_1 = new Resume(UUID_1);
-        RESUME_2 = new Resume(UUID_2);
-        RESUME_3 = new Resume(UUID_3);
-        RESUME_4 = new Resume(UUID_4);
+        RESUME_1 = new Resume(UUID_1, "Fullname1");
+        RESUME_2 = new Resume(UUID_2, "Fullname2");
+        RESUME_3 = new Resume(UUID_3, "Fullname3");
+        RESUME_4 = new Resume(UUID_4, "Fullname4");
     }
 
     public AbstractStorageTest(Storage storage) {
@@ -55,7 +58,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() throws Exception {
-        Resume resume = new Resume(UUID_3);
+        Resume resume = new Resume(UUID_3, "FullName");
         storage.update(resume);
         assertEquals(resume, storage.get(UUID_3));
     }
@@ -66,13 +69,11 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    public void getAll() throws Exception {
-        Resume[] allResumes = storage.getAll();
-        assertEquals(RESUME_1, allResumes[0]);
-        assertEquals(RESUME_2, allResumes[1]);
-        assertEquals(RESUME_3, allResumes[2]);
+    public void getAllSorted() throws Exception {
+        List<Resume> list = storage.getAllSorted();
+        assertEquals(3, list.size());
+        assertEquals(list, Arrays.asList(RESUME_1, RESUME_2, RESUME_3));
     }
-
     @Test
     public void save() throws Exception {
         storage.save(new Resume(UUID_4));
@@ -88,12 +89,12 @@ public abstract class AbstractStorageTest {
     public void saveToStorageOverflow() throws Exception {
         try {
             for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
-                storage.save(new Resume());
+                storage.save(new Resume("Name" + i));
             }
         } catch (StorageException e) {
             Assert.fail("Хранилище переполнилось раньше времени!");
         }
-        storage.save(new Resume());
+        storage.save(new Resume("Переполнение"));
     }
 
     @Test
