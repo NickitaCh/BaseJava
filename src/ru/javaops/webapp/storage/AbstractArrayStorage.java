@@ -23,7 +23,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
 
     public void saveResume(Resume resume, Integer index) {
         if (numberOfResumes == STORAGE_LIMIT) {
-            throw new StorageException("База данных заполнена.", resume.getUuid());
+            throw new StorageException("Storage overflow", resume.getUuid());
         } else {
             addResume(resume, index);
             numberOfResumes++;
