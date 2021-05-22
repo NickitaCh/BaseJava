@@ -5,11 +5,11 @@ import ru.javaops.webapp.model.Resume;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListStorage  extends  AbstractStorage{
+public class ListStorage extends AbstractStorage<Integer> {
     private List<Resume> list = new ArrayList<>();
 
     @Override
-    protected Object getKey(String uuid) {
+    protected Integer getKey(String uuid) {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getUuid().equals(uuid)) {
                 return i;
@@ -19,28 +19,28 @@ public class ListStorage  extends  AbstractStorage{
     }
 
     @Override
-    protected void updateResume(Resume r, Object key) {
-        list.set((Integer) key, r);
+    protected void updateResume(Resume r, Integer key) {
+        list.set(key, r);
     }
 
     @Override
-    protected boolean existResume(Object key) {
+    protected boolean existResume(Integer key) {
         return key != null;
     }
 
     @Override
-    protected void saveResume(Resume r, Object key) {
+    protected void saveResume(Resume r, Integer key) {
         list.add(r);
     }
 
     @Override
-    protected Resume getResume(Object key) {
-        return list.get((Integer) key);
+    protected Resume getResume(Integer key) {
+        return list.get(key);
     }
 
     @Override
-    protected void deleteResume(Object key) {
-        list.remove(((Integer) key).intValue());
+    protected void deleteResume(Integer key) {
+        list.remove(key.intValue());
     }
 
     @Override

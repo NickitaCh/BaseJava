@@ -7,52 +7,52 @@ import ru.javaops.webapp.model.Resume;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractStorage  implements Storage{
+public abstract class AbstractStorage<SK>  implements Storage{
 
-    protected abstract Object getKey(String uuid);
+    protected abstract SK getKey(String uuid);
 
-    protected abstract void updateResume(Resume r, Object key);
+    protected abstract void updateResume(Resume r, SK key);
 
-    protected abstract boolean existResume(Object key);
+    protected abstract boolean existResume(SK key);
 
-    protected abstract void saveResume(Resume r, Object key);
+    protected abstract void saveResume(Resume r, SK key);
 
-    protected abstract Resume getResume(Object key);
+    protected abstract Resume getResume(SK key);
 
-    protected abstract void deleteResume(Object key);
+    protected abstract void deleteResume(SK key);
 
     protected abstract List<Resume> doCopy();
 
     public void update(Resume r) {
-        Object key = getExistedKey(r.getUuid());
+        SK key = getExistedKey(r.getUuid());
         updateResume(r, key);
     }
 
     public void save(Resume r) {
-        Object key = getNotExistedKey(r.getUuid());
+        SK key = getNotExistedKey(r.getUuid());
         saveResume(r, key);
     }
 
     public void delete(String uuid) {
-        Object key = getExistedKey(uuid);
+        SK key = getExistedKey(uuid);
         deleteResume(key);
     }
 
     public Resume get(String uuid) {
-        Object key = getExistedKey(uuid);
+        SK key = getExistedKey(uuid);
         return getResume(key);
     }
 
-    private Object getExistedKey(String uuid) {
-        Object key = getKey(uuid);
+    private SK getExistedKey(String uuid) {
+        SK key = getKey(uuid);
         if (!existResume(key)) {
             throw new NotExistStorageException(uuid);
         }
         return key;
     }
 
-    private Object getNotExistedKey(String uuid) {
-        Object key = getKey(uuid);
+    private SK getNotExistedKey(String uuid) {
+        SK key = getKey(uuid);
         if (existResume(key)) {
             throw new ExistStorageException(uuid);
         }

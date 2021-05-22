@@ -6,7 +6,7 @@ import ru.javaops.webapp.model.Resume;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected static final int STORAGE_LIMIT = 10000;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -17,31 +17,31 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         numberOfResumes = 0;
     }
 
-    public void updateResume(Resume resume, Object index) {
-        storage[(Integer) index] = resume;
+    public void updateResume(Resume resume, Integer index) {
+        storage[index] = resume;
     }
 
-    public void saveResume(Resume resume, Object index) {
+    public void saveResume(Resume resume, Integer index) {
         if (numberOfResumes == STORAGE_LIMIT) {
             throw new StorageException("База данных заполнена.", resume.getUuid());
         } else {
-            addResume(resume, (Integer) index);
+            addResume(resume, index);
             numberOfResumes++;
         }
     }
 
-    public Resume getResume(Object index) {
-        return storage[(Integer) index];
+    public Resume getResume(Integer index) {
+        return storage[index];
     }
 
-    public void deleteResume(Object index) {
-        System.arraycopy(storage, (Integer) index + 1, storage, (Integer) index, numberOfResumes - (Integer) index - 1);
+    public void deleteResume(Integer index) {
+        System.arraycopy(storage, index + 1, storage, index, numberOfResumes - index - 1);
         storage[numberOfResumes - 1] = null;
         numberOfResumes--;
     }
 
-    public boolean existResume(Object index) {
-        return (Integer) index >= 0;
+    public boolean existResume(Integer index) {
+        return index >= 0;
     }
 
     public List<Resume> doCopy() {
