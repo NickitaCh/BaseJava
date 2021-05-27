@@ -3,19 +3,19 @@ package ru.javaops.webapp.model;
 import java.util.List;
 
 public class ListSection extends AbstractSection {
-    private final List<String> nameOfSection;
+    private final List<String> content;
 
     public ListSection(List<String> nameOfSection) {
-        this.nameOfSection = nameOfSection;
+        this.content = nameOfSection;
     }
 
-    public List<String> getNameOfSection() {
-        return nameOfSection;
+    public List<String> getСontent() {
+        return content;
     }
 
     @Override
     public String toString() {
-        return nameOfSection.toString();
+        return content.toString();
     }
 
     @Override
@@ -23,11 +23,11 @@ public class ListSection extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ListSection listSection = (ListSection) o;
-        return nameOfSection.equals(listSection.nameOfSection);
+        return content.equals(listSection.content);
     }
 
     @Override
     public int hashCode() {
-        return nameOfSection.hashCode();
+        return content.hashCode();
     }
 }

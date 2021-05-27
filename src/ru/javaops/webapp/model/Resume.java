@@ -32,8 +32,16 @@ public class Resume implements Comparable<Resume> {
         return contacts.get(type);
     }
 
+    public void setContact(ContactType type, String value) {
+        contacts.put(type, value);
+    }
+
     public AbstractSection getSection(SectionType type) {
         return sections.get(type);
+    }
+
+    public void setSection(SectionType type, AbstractSection section){
+        sections.put(type, section);
     }
 
     @Override
@@ -47,7 +55,7 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public int hashCode() {
-        return uuid.hashCode();
+        return uuid.hashCode() + fullName.hashCode();
     }
 
     @Override

@@ -1,4 +1,4 @@
 package ru.javaops.webapp.model;
 
-abstract public class AbstractSection {
+public abstract class AbstractSection {
 }
