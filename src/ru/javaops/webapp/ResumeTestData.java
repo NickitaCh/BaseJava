@@ -115,4 +115,7 @@ public class ResumeTestData {
                 new Experience.Position(1984, Month.SEPTEMBER, 1987, Month.JUNE, "Закончил с отличием", null))));
         return r;
     }
+    public static void main(String[] args) {
+        ResumeTestData.NewResume("Григорий Кислин", "uuid1");
+    }
 }
