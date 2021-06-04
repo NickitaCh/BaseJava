@@ -1,5 +1,6 @@
 package ru.javaops.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Organization extends AbstractSection {
@@ -7,6 +8,10 @@ public class Organization extends AbstractSection {
 
     public Organization(List<Experience> companies) {
         this.companies = companies;
+    }
+
+    public Organization(Experience companies) {
+        this(Arrays.asList(companies));
     }
 
     public List<Experience> getCompanies() {
