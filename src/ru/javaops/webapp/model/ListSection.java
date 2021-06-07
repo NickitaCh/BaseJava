@@ -1,12 +1,17 @@
 package ru.javaops.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ListSection extends AbstractSection {
     private final List<String> content;
 
-    public ListSection(List<String> nameOfSection) {
-        this.content = nameOfSection;
+    public ListSection(List<String> content) {
+        this.content = content;
+    }
+
+    public ListSection(String... content) {
+        this(Arrays.asList(content));
     }
 
     public List<String> getСontent() {

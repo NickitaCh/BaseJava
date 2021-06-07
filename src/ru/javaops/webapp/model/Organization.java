@@ -10,12 +10,8 @@ public class Organization extends AbstractSection {
         this.companies = companies;
     }
 
-    public Organization(Experience companies) {
+    public Organization(Experience... companies) {
         this(Arrays.asList(companies));
-    }
-
-    public List<Experience> getCompanies() {
-        return companies;
     }
 
     @Override

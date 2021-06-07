@@ -2,6 +2,7 @@ package ru.javaops.webapp.model;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -11,7 +12,7 @@ import static ru.javaops.webapp.util.DateUtil.of;
 
 public class Experience {
     private final Link homePage;
-    private List<Position> positions;
+    private List<Position> positions = new ArrayList<>();;
 
     public Experience(Link homePage, List<Position> positions) {
         this.homePage = homePage;
@@ -95,7 +96,7 @@ public class Experience {
 
         @Override
         public String toString() {
-            return "Position:" + startWork + ',' + endWork + ',' + workPosition + ',' + description;
+            return "\nPosition:" + startWork + ',' + endWork + '\n' + workPosition + '\n' + description;
         }
 
     }

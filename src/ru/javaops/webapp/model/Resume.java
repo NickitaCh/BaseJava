@@ -2,6 +2,7 @@ package ru.javaops.webapp.model;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -40,8 +41,18 @@ public class Resume implements Comparable<Resume> {
         return sections.get(type);
     }
 
-    public void setSection(SectionType type, AbstractSection section){
+    public void setSection(SectionType type, AbstractSection section) {
         sections.put(type, section);
+    }
+
+    @Override
+    public String toString() {
+        return "Resume{" +
+                "uuid='" + uuid + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", contacts=" + contacts +
+                ", sections=" + sections +
+                '}';
     }
 
     @Override
@@ -49,21 +60,15 @@ public class Resume implements Comparable<Resume> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Resume resume = (Resume) o;
-        if (!uuid.equals(resume.uuid)) return false;
-        return fullName.equals(resume.fullName);
-
+        return Objects.equals(uuid, resume.uuid) &&
+                Objects.equals(fullName, resume.fullName) &&
+                Objects.equals(contacts, resume.contacts) &&
+                Objects.equals(sections, resume.sections);
     }
 
     @Override
     public int hashCode() {
-        int result = uuid.hashCode();
-        result = 31 * result + fullName.hashCode();
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return uuid + fullName;
+        return Objects.hash(uuid, fullName, contacts, sections);
     }
 
     @Override

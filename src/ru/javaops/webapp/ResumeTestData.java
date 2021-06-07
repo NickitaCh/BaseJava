@@ -7,7 +7,11 @@ import java.util.Arrays;
 
 
 public class ResumeTestData {
-    public static Resume NewResume(String name, String uuid) {
+    public static void main(String[] args) {
+        System.out.println(createResume("Григорий Кислин", "uuid1"));
+    }
+
+    public static Resume createResume(String name, String uuid) {
         Resume r = new Resume(name, uuid);
         r.setContact(ContactType.PHONE, "+7(921) 855-0482");
         r.setContact(ContactType.SKYPE, "grigory.kislin");
@@ -18,7 +22,7 @@ public class ResumeTestData {
         r.setSection(SectionType.OBJECTIVE, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
         r.setSection(SectionType.PERSONAL, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры. "));
         r.setSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList(
-                "С 2013 года: разработка проектов \"Разработка Web приложения\"" +
+                "\n" + "С 2013 года: разработка проектов \"Разработка Web приложения\"" +
                         ",\"Java Enterprise\", \"Многомодульный maven. Многопоточность." +
                         " XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\"" +
                         ". Организация онлайн стажировок и ведение проектов. Более 1000 выпускников. ",
@@ -37,26 +41,26 @@ public class ResumeTestData {
                 "\n" + "Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat," +
                         " Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа.")));
         r.setSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList(
-                "JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2 ",
-                "Version control: Subversion, Git, Mercury, ClearCase, Perforce ",
-                "DB: PostgreSQL(наследование, pgplsql, PL/Python), Redis (Jedis), H2, Oracle",
-                "MySQL, SQLite, MS SQL, HSQLDB ",
-                "Languages: Java, Scala, Python/Jython/PL-Python, JavaScript, Groovy",
-                "XML/XSD/XSLT, SQL, C/C++, Unix shell scripts",
-                "Java Frameworks: Java 8 (Time API, Streams), Guava, Java Executor, " +
+                "\n" + "JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2 ",
+                "\n" + "Version control: Subversion, Git, Mercury, ClearCase, Perforce ",
+                "\n" + "DB: PostgreSQL(наследование, pgplsql, PL/Python), Redis (Jedis), H2, Oracle",
+                "\n" + "MySQL, SQLite, MS SQL, HSQLDB ",
+                "\n" + "Languages: Java, Scala, Python/Jython/PL-Python, JavaScript, Groovy",
+                "\n" + "XML/XSD/XSLT, SQL, C/C++, Unix shell scripts",
+                "\n" + "Java Frameworks: Java 8 (Time API, Streams), Guava, Java Executor, " +
                         "MyBatis, Spring (MVC, Security, Data, Clouds, Boot), JPA (Hibernate, EclipseLink)," +
                         " Guice, GWT(SmartGWT, ExtGWT/GXT), Vaadin, Jasperreports, Apache Commons," +
                         " Eclipse SWT, JUnit, Selenium (htmlelements). ",
-                "Python: Django. ",
-                "JavaScript: jQuery, ExtJS, Bootstrap.js, underscore.js ",
-                "Scala: SBT, Play2, Specs2, Anorm, Spray, Akka ",
-                "Технологии: Servlet, JSP/JSTL, JAX-WS, REST, EJB, RMI, JMS, JavaMail, JAXB, StAX, SAX, DOM, " +
+                "\n" + "Python: Django. ",
+                "\n" + "JavaScript: jQuery, ExtJS, Bootstrap.js, underscore.js ",
+                "\n" + "Scala: SBT, Play2, Specs2, Anorm, Spray, Akka ",
+                "\n" + "Технологии: Servlet, JSP/JSTL, JAX-WS, REST, EJB, RMI, JMS, JavaMail, JAXB, StAX, SAX, DOM, " +
                         "XSLT, MDB, JMX, JDBC, JPA, JNDI, JAAS, SOAP, AJAX, Commet, HTML5, ESB, CMIS, BPMN2," +
                         " LDAP, OAuth1, OAuth2, JWT",
-                "Инструменты: Maven + plugin development, Gradle, настройка Ngnix, ",
-                "администрирование Hudson/Jenkins, Ant + custom task, SoapUI, JPublisher, Flyway, Nagios, iReport, OpenCmis, Bonita, pgBouncer. ",
-                "Отличное знание и опыт применения концепций ООП, SOA, шаблонов проектрирования, архитектурных шаблонов, UML, функционального программирования ",
-                "Родной русский, английский \"upper intermediate\""
+                "\n" + "Инструменты: Maven + plugin development, Gradle, настройка Ngnix, ",
+                "\n" + "администрирование Hudson/Jenkins, Ant + custom task, SoapUI, JPublisher, Flyway, Nagios, iReport, OpenCmis, Bonita, pgBouncer. ",
+                "\n" + "Отличное знание и опыт применения концепций ООП, SOA, шаблонов проектрирования, архитектурных шаблонов, UML, функционального программирования ",
+                "\n" + "Родной русский, английский \"upper intermediate\"" + "\n"
         )));
         r.setSection(SectionType.EXPERIENCE, new Organization(new Experience("Java Online Projects", "https://javaops.ru/",
                 new Experience.Position(2013, Month.OCTOBER, "Автор проекта",
@@ -114,8 +118,5 @@ public class ResumeTestData {
         r.setSection(SectionType.EDUCATION, new Organization(new Experience("Заочная физико-техническая школа при МФТИ", "http://www.school.mipt.ru/",
                 new Experience.Position(1984, Month.SEPTEMBER, 1987, Month.JUNE, "Закончил с отличием", null))));
         return r;
-    }
-    public static void main(String[] args) {
-        ResumeTestData.NewResume("Григорий Кислин", "uuid1");
     }
 }
