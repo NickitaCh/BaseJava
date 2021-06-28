@@ -29,19 +29,19 @@ public class MainFile {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        printFiles(dir);
+        printFiles(dir, " ");
     }
 
-    public static void printFiles(File dir) {
+    public static void printFiles(File dir, String a) {
         File[] files = dir.listFiles();
 
         if (files != null) {
             for (File file : files) {
                 if (file.isFile()) {
-                    System.out.println("File: " + file.getName());
+                    System.out.println(a + "File: " + file.getName());
                 } else if (file.isDirectory()) {
-                    System.out.println("Folder: " + file.getName());
-                    printFiles(file);
+                    System.out.println(a + "Folder: " + file.getName());
+                    printFiles(file, a + " ");
                 }
             }
         }

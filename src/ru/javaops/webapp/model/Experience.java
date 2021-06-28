@@ -1,5 +1,6 @@
 package ru.javaops.webapp.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -10,9 +11,10 @@ import java.util.Objects;
 import static ru.javaops.webapp.util.DateUtil.forNow;
 import static ru.javaops.webapp.util.DateUtil.of;
 
-public class Experience {
+public class Experience implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final Link homePage;
-    private List<Position> positions = new ArrayList<>();;
+    private List<Position> positions = new ArrayList<>();
 
     public Experience(Link homePage, List<Position> positions) {
         this.homePage = homePage;
@@ -41,7 +43,7 @@ public class Experience {
         return Objects.hash(homePage, positions);
     }
 
-    public static class Position {
+    public static class Position implements Serializable {
         private final LocalDate startWork;
         private final LocalDate endWork;
         private final String workPosition;

@@ -1,6 +1,7 @@
 package ru.javaops.webapp.model;
 
 public class TextSection extends AbstractSection {
+    private static final long serialVersionUID = 1L;
     private final String text;
 
     public TextSection(String text) {
