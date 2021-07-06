@@ -50,6 +50,7 @@ public class FileStorage extends AbstractStorage<File> {
         } catch (IOException e) {
             throw new StorageException("IO error", file.getName(), e);
         }
+        updateResume(r, file);
     }
 
     @Override

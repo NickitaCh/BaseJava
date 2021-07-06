@@ -17,7 +17,7 @@ public class PathStorage extends AbstractStorage<Path> {
     private Serializer serializer;
 
     protected PathStorage(String dir, Serializer serializer) {
-        Objects.requireNonNull(directory, "directory must not be null");
+        Objects.requireNonNull(dir, "directory must not be null");
         this.serializer = serializer;
         directory = Paths.get(dir);
         if (!Files.isDirectory(directory) || !Files.isWritable(directory)) {
@@ -79,11 +79,7 @@ public class PathStorage extends AbstractStorage<Path> {
 
     @Override
     public void clear() {
-        try {
-            Files.list(directory).forEach(this::deleteResume);
-        } catch (IOException e) {
-            throw new StorageException("Path delete error", e);
-        }
+        getFilesList().forEach(this::deleteResume);
     }
 
     @Override
