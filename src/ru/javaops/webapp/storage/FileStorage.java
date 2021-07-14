@@ -2,6 +2,7 @@ package ru.javaops.webapp.storage;
 
 import ru.javaops.webapp.exception.StorageException;
 import ru.javaops.webapp.model.Resume;
+import ru.javaops.webapp.storage.serializer.Serializer;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class FileStorage extends AbstractStorage<File> {
     protected List<Resume> doCopy() {
         File[] files = directory.listFiles();
         if (files == null) {
-            throw new StorageException("Read error");
+            storageExceptionMethod();
         }
         List<Resume> list = new ArrayList<>(files.length);
         for (File file : files) {
@@ -85,7 +86,9 @@ public class FileStorage extends AbstractStorage<File> {
     @Override
     public void clear() {
         File[] files = directory.listFiles();
-        if (files != null) {
+        if (files == null) {
+            storageExceptionMethod();
+        } else {
             for (File file : files) {
                 deleteResume(file);
             }
@@ -96,8 +99,12 @@ public class FileStorage extends AbstractStorage<File> {
     public int size() {
         String[] list = directory.list();
         if (list == null) {
-            throw new StorageException("Directory is not readable");
+            storageExceptionMethod();
         }
         return list.length;
+    }
+
+    public void storageExceptionMethod() {
+        throw new StorageException("Storage exception error");
     }
 }
