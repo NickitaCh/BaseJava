@@ -5,10 +5,9 @@ import org.junit.Test;
 import ru.javaops.webapp.ResumeTestData;
 import ru.javaops.webapp.exception.ExistStorageException;
 import ru.javaops.webapp.exception.NotExistStorageException;
-import ru.javaops.webapp.model.*;
+import ru.javaops.webapp.model.Resume;
 
 import java.io.File;
-import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,30 +32,6 @@ public abstract class AbstractStorageTest {
         R2 = ResumeTestData.createResume(UUID_2, "Fullname2");
         R3 = ResumeTestData.createResume(UUID_3, "Fullname3");
         R4 = ResumeTestData.createResume(UUID_4, "Fullname4");
-
-        R1.setContact(ContactType.EMAIL, "dhhdf");
-        R1.setContact(ContactType.PHONE, "11111");
-        R1.setSection(SectionType.OBJECTIVE, new TextSection("Objective"));
-        R1.setSection(SectionType.PERSONAL, new TextSection("Personal"));
-        R1.setSection(SectionType.ACHIEVEMENT, new ListSection("Achivment1", "Achivment2", "Achivment3"));
-        R1.setSection(SectionType.QUALIFICATIONS, new ListSection("Java", "SQL"));
-        R1.setSection(SectionType.EXPERIENCE,
-                new Organization(
-                        new Experience("Organization1", "organization.ru",
-                                new Experience.Position(2005, Month.JANUARY, "position1", "content1"),
-                                new Experience.Position(2001, Month.MARCH, 2005, Month.JANUARY, "position2", "content2"))));
-        R1.setSection(SectionType.EDUCATION,
-                new Organization(
-                        new Experience("Institute", null,
-                                new Experience.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", null),
-                                new Experience.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
-                        new Experience("Organization12", "http://Organization12.ru")));
-        R2.setContact(ContactType.SKYPE, "skype2");
-        R2.setContact(ContactType.PHONE, "22222");
-        R1.setSection(SectionType.EXPERIENCE,
-                new Organization(
-                        new Experience("Organization2", "http://Organization2.ru",
-                                new Experience.Position(2015, Month.JANUARY, "position1", "content1"))));
     }
 
     protected AbstractStorageTest(Storage storage) {
