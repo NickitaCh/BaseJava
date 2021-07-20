@@ -1,12 +1,18 @@
 package ru.javaops.webapp.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Organization extends AbstractSection {
     private static final long serialVersionUID = 1L;
-    private final List<Experience> companies;
+    private List<Experience> companies;
+
+    public Organization() {
+    }
 
     public Organization(List<Experience> companies) {
         Objects.requireNonNull(companies, "companies must not be null");

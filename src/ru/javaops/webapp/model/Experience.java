@@ -1,5 +1,10 @@
 package ru.javaops.webapp.model;
 
+import ru.javaops.webapp.util.LocalDateAdapter;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
@@ -11,10 +16,14 @@ import java.util.Objects;
 import static ru.javaops.webapp.util.DateUtil.forNow;
 import static ru.javaops.webapp.util.DateUtil.of;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Experience implements Serializable {
     private static final long serialVersionUID = 1L;
-    private final Link homePage;
+    private Link homePage;
     private List<Position> positions = new ArrayList<>();
+
+    public Experience() {
+    }
 
     public Experience(Link homePage, List<Position> positions) {
         this.homePage = homePage;
@@ -23,6 +32,14 @@ public class Experience implements Serializable {
 
     public Experience(String name, String url, Position... positions) {
         this(new Link(name, url), Arrays.asList(positions));
+    }
+
+    public Link getHomePage() {
+        return homePage;
+    }
+
+    public List<Position> getPositions() {
+        return positions;
     }
 
     @Override
@@ -43,11 +60,17 @@ public class Experience implements Serializable {
         return Objects.hash(homePage, positions);
     }
 
+    @XmlAccessorType(XmlAccessType.FIELD)
     public static class Position implements Serializable {
-        private final LocalDate startWork;
-        private final LocalDate endWork;
-        private final String workPosition;
-        private final String description;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
+        private LocalDate startWork;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
+        private LocalDate endWork;
+        private String workPosition;
+        private String description;
+
+        public Position() {
+        }
 
         public Position(int startYear, Month startMonth, String title, String description) {
             this(of(startYear, startMonth), forNow, title, description);
@@ -64,7 +87,7 @@ public class Experience implements Serializable {
             this.startWork = startDate;
             this.endWork = endDate;
             this.workPosition = title;
-            this.description = description;
+            this.description = description == null ? "" : description;
         }
 
         public LocalDate getStartWork() {
