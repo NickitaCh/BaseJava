@@ -38,8 +38,9 @@ public class DataStreamSerializer implements Serializer {
                     case EXPERIENCE:
                     case EDUCATION:
                         writeItem(dos, ((Organization) section).getExperience(), org -> {
-                            dos.writeUTF(org.getHomePage().getName());
-                            dos.writeUTF(org.getHomePage().getUrl());
+                            Link link = org.getHomePage();
+                            dos.writeUTF(link.getName());
+                            dos.writeUTF(link.getUrl());
                             writeItem(dos, org.getPositions(), position -> {
                                 writeLocalDate(dos, position.getStartWork());
                                 writeLocalDate(dos, position.getEndWork());
@@ -94,7 +95,7 @@ public class DataStreamSerializer implements Serializer {
         }
     }
 
-    private <T> List readList(DataInputStream dis, Reader<T> reader) throws IOException {
+    private <T> List<T> readList(DataInputStream dis, Reader<T> reader) throws IOException {
         int size = dis.readInt();
         List<T> list = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {

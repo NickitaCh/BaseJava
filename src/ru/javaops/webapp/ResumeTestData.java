@@ -115,7 +115,7 @@ public class ResumeTestData {
                 "университет информационных технологий, механики и оптики", "https://itmo.ru/ru/",
                 new Experience.Position(1993, Month.SEPTEMBER, 1996, Month.JULY, "Аспирантура (программист С, С++)", null),
                 new Experience.Position(1987, Month.SEPTEMBER, 1993, Month.JULY, "Инженер (программист Fortran, C)", null))));
-        r.setSection(SectionType.EDUCATION, new Organization(new Experience("Заочная физико-техническая школа при МФТИ", "http://www.school.mipt.ru/",
+        r.setSection(SectionType.EDUCATION, new Organization(new Experience("Заочная физико-техническая школа при МФТИ", null,
                 new Experience.Position(1984, Month.SEPTEMBER, 1987, Month.JUNE, "Закончил с отличием", null))));
         return r;
     }
