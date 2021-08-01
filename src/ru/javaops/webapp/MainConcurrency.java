@@ -59,27 +59,7 @@ public class MainConcurrency {
         });
         System.out.println(mainConcurrency.counter);
 
-        final int lockFirst = 1;
-        final int lockSecond = 2;
 
-        deadLock(lockFirst, lockSecond);
-        deadLock(lockSecond, lockFirst);
-    }
-
-    private static void deadLock(Object lockFirst, Object lockSecond) {
-        new Thread(() -> {
-            synchronized (lockFirst) {
-                System.out.println("In block " + lockFirst);
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                synchronized (lockSecond) {
-                    System.out.println("In block " + lockSecond);
-                }
-            }
-        }).start();
     }
 
     private synchronized void inc() {
