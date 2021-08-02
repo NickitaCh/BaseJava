@@ -1,29 +1,47 @@
 package ru.javaops.webapp;
 
 public class MainDeadLock {
-    public static void main(String[] args) {
-        final String lockFirst = "FirstLock";
-        final String lockSecond = "SecondLock";
+    public static final String Lock1 = "Lock1";
+    public static final String Lock2 = "Lock2";
 
-        deadLock(lockFirst, lockSecond);
-        deadLock(lockSecond, lockFirst);
+    public static void main(String args[]) {
+        Thread1 T1 = new Thread1();
+        Thread2 T2 = new Thread2();
+        T1.start();
+        T2.start();
     }
 
-    private static void deadLock(Object lockFirst, Object lockSecond) {
-        new Thread(() -> {
-            System.out.println("Thread 1: Waits for " + lockFirst);
-            synchronized (lockFirst) {
-                System.out.println("Thread 1: Takes " + lockFirst);
+    private static class Thread1 extends Thread {
+        public void run() {
+            synchronized (Lock1) {
+                System.out.println("Thread 1: Holding lock 1");
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Thread 2: Waits for " + lockSecond);
-                synchronized (lockSecond) {
-                    System.out.println("Thread 2: Takes " + lockSecond);
+                System.out.println("Thread 1: Waiting for lock 2");
+                synchronized (Lock2) {
+                    System.out.println("Thread 1: Holding lock 1 & 2");
                 }
             }
-        }).start();
+        }
+    }
+
+    private static class Thread2 extends Thread {
+        public void run() {
+            synchronized (Lock2) {
+                System.out.println("Thread 2: Holding lock 2");
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Thread 2: Waiting for lock 1");
+                synchronized (Lock1) {
+                    System.out.println("Thread 2: Holding lock 1 & 2");
+                }
+            }
+        }
     }
 }
