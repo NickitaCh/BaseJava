@@ -11,17 +11,17 @@ public class MainDeadLock {
 
     private static void deadLock(Object lockFirst, Object lockSecond) {
         new Thread(() -> {
-            System.out.println("Wait for " + lockFirst);
+            System.out.println("Thread 1: Waits for " + lockFirst);
             synchronized (lockFirst) {
-                System.out.println("Thread 1: takes " + lockFirst);
+                System.out.println("Thread 1: Takes " + lockFirst);
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Wait for " + lockSecond);
+                System.out.println("Thread 2: Waits for " + lockSecond);
                 synchronized (lockSecond) {
-                    System.out.println("Thread 2: takes " + lockSecond);
+                    System.out.println("Thread 2: Takes " + lockSecond);
                 }
             }
         }).start();
