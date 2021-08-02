@@ -13,15 +13,15 @@ public class MainDeadLock {
         new Thread(() -> {
             System.out.println("Wait for " + lockFirst);
             synchronized (lockFirst) {
-                System.out.println("In block " + lockFirst);
+                System.out.println("Thread 1: takes " + lockFirst);
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 System.out.println("Wait for " + lockSecond);
                 synchronized (lockSecond) {
-                    System.out.println("In block " + lockSecond);
+                    System.out.println("Thread 2: takes " + lockSecond);
                 }
             }
         }).start();
