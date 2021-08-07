@@ -11,19 +11,23 @@ public class MainDeadLock {
 
     private static void deadLock(Object lockFirst, Object lockSecond) {
         new Thread(() -> {
-            System.out.println(Thread.currentThread().getName() + " Waits for " + lockFirst);
+            System.out.println(MainDeadLock.getThreadName() + " Waits for " + lockFirst);
             synchronized (lockFirst) {
-                System.out.println(Thread.currentThread().getName() + " Takes " + lockFirst);
+                System.out.println(MainDeadLock.getThreadName() + " Takes " + lockFirst);
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println(Thread.currentThread().getName() + " Waits for " + lockSecond);
+                System.out.println(MainDeadLock.getThreadName() + " Waits for " + lockSecond);
                 synchronized (lockSecond) {
-                    System.out.println(Thread.currentThread().getName() + " Takes " + lockSecond);
+                    System.out.println(MainDeadLock.getThreadName() + " Takes " + lockSecond);
                 }
             }
         }).start();
+    }
+
+    public static String getThreadName() {
+       return Thread.currentThread().getName();
     }
 }
