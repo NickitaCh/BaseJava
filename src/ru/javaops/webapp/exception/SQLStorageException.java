@@ -8,7 +8,7 @@ public class SQLStorageException {
     private SQLStorageException() {
     }
 
-    public static StorageException uniqueViolationException(SQLException e) {
+    public static StorageException existSQLException(SQLException e) {
         if (e instanceof PSQLException) {
             if (e.getSQLState().equals("23505")) {
                 return new ExistStorageException(null);

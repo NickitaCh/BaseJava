@@ -23,7 +23,7 @@ public class SqlHelper {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             return executor.execute(ps);
         } catch (SQLException e) {
-            throw SQLStorageException.uniqueViolationException(e);
+            throw SQLStorageException.existSQLException(e);
         }
     }
 }
