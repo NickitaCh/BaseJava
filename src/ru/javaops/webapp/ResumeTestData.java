@@ -1,5 +1,6 @@
 package ru.javaops.webapp;
 
+import ru.javaops.webapp.model.ContactType;
 import ru.javaops.webapp.model.Resume;
 
 
@@ -10,12 +11,12 @@ public class ResumeTestData {
 
     public static Resume createResume(String uuid, String name) {
         Resume r = new Resume(uuid, name);
-//        r.setContact(ContactType.PHONE, "+7(921) 855-0482");
-//        r.setContact(ContactType.SKYPE, "grigory.kislin");
-//        r.setContact(ContactType.EMAIL, "gkislin@yandex.ru");
-//        r.setContact(ContactType.LINKEDIN, "linkedin.com/in/gkislin");
-//        r.setContact(ContactType.GITHUB, "github.com/gkislin");
-//        r.setContact(ContactType.STACKOVERFLOW, "stackoverflow.com/users/548473/grigory-kislin");
+        r.setContact(ContactType.PHONE, "+7(921) 855-0482");
+        r.setContact(ContactType.SKYPE, "grigory.kislin");
+        r.setContact(ContactType.EMAIL, "gkislin@yandex.ru");
+        r.setContact(ContactType.LINKEDIN, "linkedin.com/in/gkislin");
+        r.setContact(ContactType.GITHUB, "github.com/gkislin");
+        r.setContact(ContactType.STACKOVERFLOW, "stackoverflow.com/users/548473/grigory-kislin");
 //        r.setSection(SectionType.OBJECTIVE, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
 //        r.setSection(SectionType.PERSONAL, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры. "));
 //        r.setSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList(
