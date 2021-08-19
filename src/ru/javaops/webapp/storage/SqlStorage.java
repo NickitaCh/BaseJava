@@ -1,12 +1,16 @@
 package ru.javaops.webapp.storage;
 
 import ru.javaops.webapp.exception.NotExistStorageException;
+import ru.javaops.webapp.exception.SQLStorageException;
 import ru.javaops.webapp.model.ContactType;
 import ru.javaops.webapp.model.Resume;
 import ru.javaops.webapp.sql.SqlHelper;
 
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SqlStorage implements Storage {
     public final SqlHelper sqlHelper;
@@ -86,7 +90,8 @@ public class SqlStorage implements Storage {
         return sqlHelper.execute("" +
                         "  SELECT * FROM resume r " +
                         "    LEFT JOIN contact c " +
-                        "      ON r.uuid = c.resume_uuid ",
+                        "      ON r.uuid = c.resume_uuid " +
+                        "ORDER BY full_name, uuid",
                 ps -> {
                     ResultSet rs = ps.executeQuery();
                     Map<String, Resume> map = new LinkedHashMap<>();
@@ -99,9 +104,7 @@ public class SqlStorage implements Storage {
                         }
                         addContact(rs, resume);
                     }
-                    List<Resume> list = new ArrayList<>(map.values());
-                    Collections.sort(list);
-                    return list;
+                    return new ArrayList<>(map.values());
                 });
     }
 
@@ -126,11 +129,12 @@ public class SqlStorage implements Storage {
     }
 
     private void deleteAllContacts(Connection conn, Resume r) {
-        sqlHelper.execute("DELETE  FROM contact WHERE resume_uuid=?", ps -> {
+        try (PreparedStatement ps = conn.prepareStatement("DELETE  FROM contact WHERE resume_uuid=?")) {
             ps.setString(1, r.getUuid());
             ps.execute();
-            return null;
-        });
+        } catch (SQLException e) {
+            throw SQLStorageException.existSQLException(e);
+        }
     }
 
     private void addContact(ResultSet rs, Resume r) throws SQLException {
